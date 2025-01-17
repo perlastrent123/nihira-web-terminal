@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% set about = true %}
+
+{% block content %}
+<div class="content centerdiv">
+    <video id="postMark" autoplay muted loop src="https://video.twimg.com/ext_tw_video/1794338114988834816/pu/vid/avc1/1280x720/cI4794EkdxW5DelB.mp4?tag=12"></video>
+    <div class="terminal tealborder">
+        <div class="terminalcontent" id="terminal">
+            <p>My hyprland terminal recreated in a webpage lmao</p>
+            <p>This web page was created for me to submit something for harvard's cs50 <a href="https://cs50.harvard.edu/x/2024/psets/8/" target="_blank">week 8's problemset</a></p>
+            <p>Type "help" for list of commands, although there's only 2 for now</p>
+        </div>
+        <div class="terminalinput">
+            <form id="user_input" method="get" action="/process">
+                <span id="terminaldirectory">/</span>
+                <span style="color: #16D8B5; font-weight: bold; font-size: 18px">></span>
+                <input type="text" id="terminalinput" name="terminalinput" autofocus autocomplete="off">
+                <input id ="parentId" type="hidden">
+                <input id ="currentId" type="hidden" value="1">
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const contentNode = document.getElementById("terminal");
+    const form = document.getElementById("user_input");
+    const terminaldirectory = document.getElementById("terminaldirectory");
+    const input = document.getElementById("terminalinput");
+    let currentId = document.getElementById("currentId");
+    let parentId = document.getElementById("parentId");
+
+    form.onsubmit = function(event) {
+        event.preventDefault();
+
+        formData = new FormData(form);
+        formData.append("currentDirectory", `${terminaldirectory.innerText}`);
+        let url = new URLSearchParams(formData).toString();
+
+        fetch(`/update?${url}&currentId=${currentId.value}&parentId=${parentId.value}`, {
+            method: "GET"
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json + " UPDATE!");
+            let command = text.split(" ")[0];
+            if (json != null) {
+                if (command == "cd") {
+                    console.log("VALUES UPDATED:");
+                    currentId.value = json[0];
+                    parentId.value = json[1];
+                }
+            }
+        });
+
+        let errorNode = document.createElement("p");
+        let text = input.value;
+
+        let container =
+        `
+        <div  style="line-height: 20px;">
+        <span id="terminaldirectory"> ${terminaldirectory.innerText} </span>
+        <span style="color: #16D8B5; font-weight: bold; font-size: 18px">></span>
+        <span> ${text}</span>
+        </div>
+        `;
+
+        contentNode.insertAdjacentHTML('beforeend', container);
+
+        currentIdValue = currentId.value;
+        parentIdValue = parentId.value;
+        console.log("TEST");
+        console.log(currentIdValue);
+        console.log(parentIdValue);
+
+        fetch(`/process?${url}&currentId=${currentIdValue}&parentId=${parentIdValue}`, {
+            method: "GET"
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+
+            let command = text.split(" ")[0];
+            if (json != null) {
+                if (command == "cd") {
+                    terminaldirectory.innerHTML = json[2];
+                }
+                else if (command == "mkdir") {
+                    console.log("mkdir");
+                }
+            }
+            else {
+                let error = null;
+
+                if (command == "cd") {
+                    error = "No valid directory found";
+                }
+                else if (command == "mkdir") {
+                    error = "Invalid use of syntax";
+                }
+                if (error) {
+                    errorNode.appendChild(document.createTextNode(error));
+                    contentNode.appendChild(errorNode);
+                }
+            }
+        })
+
+        contentNode.scrollTop = contentNode.scrollHeight;
+        input.value = "";
+    }
+
+</script>
+{% endblock %}
+

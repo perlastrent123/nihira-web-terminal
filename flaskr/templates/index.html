@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% set index = true %}
+
+{% block content %}
+<div class="content">
+    <img id="background" src="{{ url_for('static', filename='/assets/img/nanahira1.jpg') }}" alt="postMark">
+    <div class="hello">
+        <p></p>
+        <p>Hello! Welcome to my Page inspired by my custom Linux themed around <a href="https://www.youtube.com/watch?v=ExP03T5Kb_8" target="_blank">postMark!</a></p>
+<!--        <a href="https://github.com/perlastrent123/nihirArch/tree/main" target="_blank">-->
+<!--            <img class="tealborder center" src="https://github.com/perlastrent123/nihirArch/blob/main/Preview/yep.png?raw=truehttps://github.com/perlastrent123/nihirArch/blob/main/Preview/yep.png?raw=true" alt="Nihirarch Preview">-->
+<!--        </a>-->
+    </div>
+
+<!--    Slide show code stolen from "Skillthrive" https://www.youtube.com/watch?v=McPdzhLRzCg-->
+    <section class="slideshow-container">
+        <div class="slider-wrapper tealborder">
+            <div class="slider">
+                <img id="slide-0" src="https://github.com/perlastrent123/nihirArch/blob/main/Preview/NewPreview.png?raw=true" alt="nanahira">
+                <img id="slide-1" src="{{ url_for('static', filename='/assets/img/vividmemories.jpg') }}" alt="nanahira">
+                <img id="slide-2" src="{{ url_for('static', filename='/assets/img/fam.jpg') }}" alt="nanahira">
+                <p id="slider-text">
+                    Welcome! <br><br>
+                    This is a project to comply for a school assignment.
+                    This website does its best not to dox myself thank you very much. <br><br>
+                    Get to know more about the inspiration of this webpage on the portfolio page. Or just visit my github page on the footer <br><br>
+                    Get to know more about me and my family (for some reason) by sliding this powerpoint ahh window.
+                </p>
+            </div>
+            <div class="slider-nav">
+                <a href="#slide-0"></a>
+                <a href="#slide-1"></a>
+                <a href="#slide-2"></a>
+            </div>
+        </div>
+    </section>
+
+    <p></p>
+</div>
+
+<script>
+    document.querySelectorAll('.slider-nav a').forEach((navLink, index) => {
+        navLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const messages = [
+                    `
+                    Welcome! <br><br>
+                    This is a project to comply for a college assignment.
+                    This website does its best not to dox myself thank you very much. <br><br>
+                    Get to know more about the inspiration of this webpage on the portfolio page. Or just visit my github page on the footer <br><br>
+                    Get to know more about me and my family (for some reason) by sliding this powerpoint ahh window.`,
+
+                    `
+                    My name is Trent, I live in Philippines and I'm currently pursuing a degree in Computer Science. <br><br>
+
+                    My hobbies are regretting my past, a bit of piano, rarely programming, and video games.
+                    I'm hoping to learn guitar and japanese these year. Watashi wa tamago desu <br><br>
+
+                    My personality strengths are being passionate and having fun at things I do.
+                    I try as much as possible to reciprocate people's hard work and keep a positive attitude to others.
+                    I communicate well especially within academic or business context, but outside that I'm a complete NPC. <br><br>
+
+                    As much I'd hate to admit it, I don't know how to talk to people.
+                    Such a price I pay for being locked up on my computer instead of going outside.
+                    I aspire to be my like my friends who still keeps me around despite being the weird guy from the group.
+                    Thank you guys 😭.
+                    `,
+
+                    `
+                    A very memorable family picture <br><br>
+                    I come from a Family of 4, but there is like 3 families living in our house right now <br><br>
+                    I have a loving parents who both work to raise us both brothers.
+                    And I have a little brother who loves to wake me up at the middle of the night playing video games. <br><br>
+                    The family picture presented is my Dad's family side, which I consider I'm more close to,
+                    because I rarely meet my Mom's side (or never at all). <br><br>
+                    I'm thankful for parents who would always trust and support the decisions I make for myself.
+                    They've taught me the values of doing what's right for myself instead of dealing with unnecessary academic pressures.
+                    `
+                    ]
+            document.getElementById("slider-text").innerHTML = messages[index];
+            const slider = document.querySelector('.slider');
+            const slideWidth = slider.offsetWidth;
+            slider.scrollTo({
+                left: index * slideWidth,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+{% endblock%}

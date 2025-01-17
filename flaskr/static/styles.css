@@ -1,0 +1,557 @@
+            /*
+    ____  🍓 /_   🍓________ _
+   / __ \/ / __ \/ / ___/ __ `/
+  / / / / / / / / / /  / /_/ /
+ /_/ /_/_/_/ /_/_/_/   \__,_/ */
+
+* {
+    font-family: "Sansita", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 32px;
+}
+
+body {
+    display: flex;
+    background-color: #F7F1F3;
+}
+
+hr {
+    margin: 0em auto 0em auto;
+    border: none;
+    border-radius: 14px;
+    height: 4px;
+    width: 80%;
+    background: #DA9D6F;
+    opacity: 1;
+}
+
+header hr {
+    margin: 0em auto 0em auto;
+}
+
+header {
+    background-color: #203756;
+    padding-bottom: 1%;
+    box-shadow: 1px 1px 20px 1px #000000;
+}
+
+footer {
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: #203756;
+    box-shadow: 1px 1px 20px 1px #000000;
+}
+
+svg {
+    margin: .5%;
+    fill: #F7F1F3;
+    color: #F7F1F3;
+}
+
+textarea {
+    white-space: pre-wrap;
+    border: none;
+    overflow-y:scroll;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    width: 100%;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+
+    resize: none; /*remove the resize handle on the bottom right*/
+
+    width: 65vw;
+    height: 65vh;
+    background-color: transparent;
+
+    scrollbar-width: none;  /* Firefox */
+}
+
+.header-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr;
+    grid-auto-rows: min-content
+    color: #F7F1F3;
+}
+
+.header-left {
+    margin-left :48%;
+}
+
+.header-left button {
+    border: none;
+    background: none;
+}
+
+.header-right nav {
+    margin-right: 18%;
+    margin-top: .4em;
+    text-align: right;
+}
+
+.header-right nav a {
+    text-decoration: none;
+    color: #F7F1F3;
+    margin: .25%;
+}
+
+.header-right .dropdown {
+    display: none;
+    margin-right: 18%;
+    text-align: right;
+}
+
+.header-right .dropdown button {
+    background-color: #5792C4;
+    border: none;
+    width: 140px;
+    height: 40px;
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100%;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    color: #F7F1F3;
+}
+
+.footer-left {
+    margin-left :20%;
+}
+.footer-left p {
+    font-size: 24px;
+}
+
+.footer-right {
+    margin-right: 20%;
+    text-align: right;
+}
+
+.footer-right a {
+    text-decoration: none;
+}
+
+.centerdiv {
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.video-div {
+    margin-left: 12%;
+    margin-right: 12%;
+}
+
+.video-embed {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+}
+
+.responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+
+}
+
+.current {
+    background-color: #5792C4;
+    padding: 0px .5% .5% .5%;
+    border-radius: 14px 14px 14px 14px;
+}
+
+.terminal {
+    width: 65vw;
+    height: 65vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+}
+
+.terminalcontent {
+    position: relative;
+    margin: 1% 0px 0px 3%;
+    width: 95%;
+    max-height: 87%;
+    overflow-y:scroll;
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.terminalcontent::-webkit-scrollbar {
+    display: none;
+}
+
+.terminalcontent p, .terminalcontent span, .terminalcontent a, .editortext,
+.terminalinput span, .terminalinput p, .terminalinput input[type="text"], textarea,
+ #editor_window input[type=submit] {
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-family: "Source Code Pro", monospace;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.editortext {
+    margin: 1% 0% 3% 3%;
+    background-color: rgba(155, 255, 227, .3);
+}
+
+.terminalinput {
+    margin: 0% 0px 0px 3%;
+    padding: 0;
+    line-height : 20px;
+}
+.terminalinput input {
+    border: none;
+    outline: none;
+    margin: 0;
+    background: transparent;
+    width: 80%;
+}
+
+.tealborder {
+    border: 2px solid #00ffd1;
+    border-radius: 4px;
+}
+
+.hello {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.hello p {
+    font-weight: 500;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.hello p a {
+    text-decoration: none;
+    color: #203756;
+}
+
+.content-img-wrapper {
+    background-color: black; /* Matches slider background */
+    position: relative;
+    max-width: 29rem; /* Matches slider-wrapper's max-width */
+    margin: 0 auto;
+}
+
+.content-img {
+    width: 100%; /* Full width of the wrapper */
+    aspect-ratio: 16 / 9; /* Maintain the 16:9 ratio */
+    object-fit: cover; /* Ensure proper scaling and cropping */
+    display: block;
+}
+
+
+.hidden {
+    visibility: hidden;
+    overflow: hidden;
+    width: 0px;
+    height: 0px;
+}
+
+#editor_window input[type=submit] {
+  background-color: transparent;
+  border: none;
+  color: white;
+  text-decoration: none;
+  margin: 16px 8px;
+  cursor: pointer;
+}
+
+#food {
+    border-radius: 8px;
+    border: none;
+    background: none;
+    margin: .05em;
+}
+
+
+#foodlogo {
+    border-radius: 8px;
+    border-bottom: 2px solid #db9f6e;
+    background-color: #7b3955;
+    padding: .05em;
+}
+
+#liveAlertPlaceholder div {
+    display: inline-block;
+    width: 130px;
+    height: auto;
+}
+
+#postMark {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+#background {
+    opacity: 0.1;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+#ascii {
+    white-space: pre;
+    font-family: monospace;
+    font-size: 8px;
+    line-height: 8px;
+    color: rgba(134, 165, 129, 0.1);
+    letter-spacing: unset;
+    transform: unset;
+    overflow-y: hidden;
+}
+
+@media screen and (max-width: 880px) {
+    .header-right nav a {
+        display: none;
+    }
+
+    .header-right .dropdown {
+        display: block;
+    }
+}
+
+/* bootstrap class css */
+.alert {
+    border: none;
+    width: 30%;
+    height: 20%;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 25% 0% 0% 0%;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #715354;
+    color: #F7F1F3;
+    line-height: 100%;
+}
+
+.alert div {
+    display: inline-block;
+}
+
+.dropdown-menu {
+    background-color: #F7F1F3;
+
+}
+
+
+body {
+    background-color: transparent !important; /* Transparent background */
+    color: #000; /* Default text color */
+    margin: 0;
+    padding: 0;
+}
+
+p, h1, h2, h3, h4, h5, h6, span {
+    background-color: transparent;
+    color: inherit;
+    font-family: inherit;
+}
+
+/* Slideshow css stolen from Skillthrive  https://www.youtube.com/watch?v=McPdzhLRzCg */
+
+.slider-wrapper {
+    background-color: black;
+    position: relative;
+    max-width: 28rem;
+    margin: 0 auto;
+
+}
+
+.slider {
+    display: flex;
+    aspect-ratio: 16/9;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
+    -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
+	scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+
+.slider img {
+    flex:1 0 100%;
+    scroll-snap-align: start;
+    object-fit: cover;
+}
+
+.slider-nav {
+    display: flex;
+    column-gap: 1rem;
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.slider-nav a {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: white;
+    opacity: 0.75;
+    transition: opacity ease 150ms;
+}
+
+.slider-nav a:hover {
+    opacity: 1;
+}
+
+/* Hover effect in image css*/
+
+.slider img {
+    transition: .5s ease;
+}
+
+.slider:hover img {
+    -webkit-filter: blur(3px);
+    opacity: .4;
+    transition: .5s ease;
+}
+
+.slider p {
+    line-height: 28px;
+    font-size: 24px;
+    opacity: 0;
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    padding: 5px;
+    font-weight: 500;
+    color: white;
+    transition: 1s ease;
+    text-align: left;
+}
+
+.slider:hover p {
+    opacity: 1;
+    transition: .5s ease;
+}
+
+/* Duped slider */
+.slider2-wrapper {
+    background-color: black;
+    position: relative;
+    max-width: 28rem;
+    margin: 0 auto;
+
+}
+
+.slider2 {
+    display: flex;
+    aspect-ratio: 16/9;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
+    -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
+	scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+
+.slider2 img {
+    flex:1 0 100%;
+    scroll-snap-align: start;
+    object-fit: cover;
+}
+
+.slider2-nav {
+    display: flex;
+    column-gap: 1rem;
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.slider2-nav a {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: white;
+    opacity: 0.75;
+    transition: opacity ease 150ms;
+}
+
+.slider2-nav a:hover {
+    opacity: 1;
+}
+
+.slider2 img {
+    transition: .5s ease;
+}
+
+.slider2:hover img {
+    -webkit-filter: blur(3px);
+    opacity: .4;
+    transition: .5s ease;
+}
+
+.slider2 p {
+    text-decoration: none;
+    color: #203756;
+    line-height: 28px;
+    font-size: 24px;
+    opacity: 0;
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    padding: 5px;
+    font-weight: 500;
+    color: white;
+    transition: 1s ease;
+    text-align: left;
+}
+
+
+.slider2:hover p {
+    opacity: 1;
+    transition: .5s ease;
+}

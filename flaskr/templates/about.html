@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+
+{% set about = true %}
+
+{% block content %}
+<div class="content centerdiv">
+    <img id="postMark" src="https://github.com/perlastrent123/nihirArch/blob/main/Nanahira/UpscaleVideo_1_20240719.gif?raw=true" alt="postMark">
+    <div id="terminal_window" class="terminal tealborder">
+        <div class="terminalcontent" id="terminal">
+            <p>My hyprland terminal recreated in a webpage lmao</p>
+            <p>This web page initially was created for me to submit something for harvard's cs50 <a href="https://cs50.harvard.edu/x/2024/psets/8/" target="_blank">week 8's problemset</a></p>
+            <p>I've upgraded the terminal frm using only javascript, now also involves Flask</p>
+            <p>Type 'help' if you need hlep </p>
+            <p>it doesnt call an ambulance yet unfortunately </p>
+        </div>
+        <div class="terminalinput">
+            <form id="user_input" method="get" action="/process">
+                <span id="terminaldirectory">/</span>
+                <span style="color: #16D8B5; font-weight: bold; font-size: 18px">></span>
+                <input type="text" id="terminalinput" name="terminalinput" autofocus autocomplete="off">
+                <input id ="parentId" type="hidden">
+                <input id ="currentId" type="hidden" value="1">
+            </form>
+        </div>
+    </div>
+    <form id="editor_form" action="#">
+        <div id="editor_window" class="hidden tealborder terminal">
+            <textarea id="editor" name="editor" class="terminalcontent" autofocus></textarea>
+            <span class="editortext">Editor mode</span>
+            <input name="save" id="save" type="submit" value="Save">
+            <input name="quit" id="quit" type="submit" value="Quit">
+            <input name="save_and_close" id="save_and_close" type="submit" value="Save and Close">
+        </div>
+    </form>
+
+</div>
+<script>
+    function download(text, filename) {
+        var blob = new Blob([text], {type: "text/plain"});
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+    }
+
+    const form = document.getElementById("user_input");
+    const editor_form = document.getElementById("editor_form");
+    const contentNode = document.getElementById("terminal");
+    const terminaldirectory = document.getElementById("terminaldirectory");
+    const input = document.getElementById("terminalinput");
+    const terminal_window = document.getElementById("terminal_window");
+    const editor_window = document.getElementById("editor_window");
+    const text_area = document.getElementById("editor")
+    const commands = ["cd", "mkdir", "touch", "mv", "rm", "rmdir", "cp", "code", "dl"]
+    const output_commands = ["", "ls", "echo", "clear", "help"]
+
+    let currentId = document.getElementById("currentId");
+    let parentId = document.getElementById("parentId");
+    let file_id;
+
+    document.getElementById("save").addEventListener("click", function (event) {
+        event.preventDefault();
+        let editor_input = text_area.value.replace(/\n/g, '<br>');
+        editor_input = encodeURIComponent(editor_input);
+        fetch(`/write?text_area=${editor_input}&id=${file_id}`, {
+            method: "GET"
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+        });
+    });
+
+    document.getElementById("quit").addEventListener("click", function (event) {
+        event.preventDefault();
+        terminal_window.classList.remove("hidden");
+        editor_window.classList.add("hidden");
+        document.getElementById("terminalinput").focus();
+    });
+
+    document.getElementById("save_and_close").addEventListener("click", function (event) {
+        event.preventDefault();
+
+        let editor_input = text_area.value.replace(/\n/g, '<br>');
+        editor_input = encodeURIComponent(editor_input);
+
+        terminal_window.classList.remove("hidden");
+        editor_window.classList.add("hidden");
+        document.getElementById("terminalinput").focus();
+
+        fetch(`/write?text_area=${editor_input}&id=${file_id}`, {
+            method: "GET"
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+        });
+    });
+
+    form.onsubmit = function(event) {
+        event.preventDefault();
+
+        formData = new FormData(form);
+        formData.append("currentDirectory", `${terminaldirectory.innerText}`);
+        let url = new URLSearchParams(formData).toString();
+        let encodedUrl = encodeURI(url);
+        let text = input.value;
+        let errorNode = document.createElement("p");
+        let command = text.split(" ")[0];
+        let command_length = text.split(" ").length;
+
+        fetch(`/update?${encodedUrl}&currentId=${currentId.value}&parentId=${parentId.value}`, {
+            method: "GET"
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            if (json != null) {
+                if (commands.includes(command)) {
+                    return fetch(`/process?${encodedUrl}&currentId=${json[0]}&parentId=${json[1]}`);
+                }
+                else if (command == "ls") {
+                    let container;
+                    for (let i = 0; i < json.length; i++) {
+                        if (json[i][1] == "FILE") {
+                            container = `<p>[FILE] ${json[i][0]}</p>`;
+                        }
+                        else {
+                            container = `<p>[DIR] ${json[i][0]}</p>`;
+                        }
+                        contentNode.innerHTML += container;
+                    }
+                }
+                else if (command == "echo") {
+                    let container = `<p>${text.slice(5)}<p>`;
+                    contentNode.innerHTML += container;
+                }
+            }
+            else {
+                if (command == "clear") {
+                    contentNode.innerHTML = "";
+                }
+                else if (command == "help") {
+                    let container = `
+                        <p>LIST OF COMMANDS:</p>
+                        <p>cd [directory] | Change directory</p>
+                        <p>mkdir [filename] | Create a directory</p>
+                        <p>touch [filename] | Create a file</p>
+                        <p>mv [filename] [directory] | Move or rename a file</p>
+                        <p>cp [filename] [directory] | Copy a file to another directory</p>
+                        <p>rm [filename] | Remove a file </p>
+                        <p>rmdir [directory] | Remove a directory </p>
+                        <p>code [filename] | Write in a file </p>
+                        <p>dl [filename] | Download a file locally </p>
+                        </br>
+                        <p>INFO COMMANDS:</p>
+                        <p>ls | List files of current directory </p>
+                        <p>echo | Echoes arguments </p>
+                        <p>clear | Clears </p>
+                        <p>help | me </p>
+                        `;
+                    contentNode.innerHTML += container;
+                }
+            }
+        }).then(response => {
+            if (response) {
+                return response.json();
+            }
+            else {
+                return null;
+            }
+        }).then(json => {
+            if (json != null) {
+                if (command == "cd") {
+                    terminaldirectory.innerHTML = json[2];
+                    currentId.value = json[0];
+                    parentId.value = json[1];
+                }
+                else if (command == "code") {
+                    file_id = json[0];
+                    terminal_window.classList.add("hidden");
+                    editor_window.classList.remove("hidden");
+                    text_area.focus();
+                    text_area.value = json[4];
+                }
+                else if (command == "dl") {
+                    download(json[4], json[2]);
+                }
+            }
+            else {
+                let error = null;
+
+                if (commands.includes(command)) {
+                    error = "Invalid use of " + command + ". Use 'help' command for correct usage.";
+                }
+                else if (!(output_commands.includes(command))) {
+                    error = "'" + command + "' is an unrecognized command.";
+                }
+
+                if (error) {
+                    errorNode.appendChild(document.createTextNode(error));
+                    contentNode.appendChild(errorNode);
+                }
+            }
+            contentNode.scrollTop = contentNode.scrollHeight;
+        });
+
+        let container =
+        `
+        <div  style="line-height: 20px;">
+        <span id="terminaldirectory"> ${terminaldirectory.innerText} </span>
+        <span style="color: #16D8B5; font-weight: bold; font-size: 18px">></span>
+        <span> ${text}</span>
+        </div>
+        `;
+
+        contentNode.insertAdjacentHTML('beforeend', container);
+        input.value = "";
+        contentNode.scrollTop = contentNode.scrollHeight;
+        console.clear()
+    }
+
+</script>
+{% endblock %}
+

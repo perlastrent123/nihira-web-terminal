@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% set portfolio = true %}
+
+{% block content %}
+<div class="content">
+    <img id="background" src="{{ url_for('static', filename='/assets/img/nanahira1.jpg') }}" alt="postMark">
+    <div class="hello">
+        <p></p>
+        <p>My certificates</p>
+    </div>
+    <div class="hello">
+        <section class="slideshow-container">
+            <div class="slider-wrapper tealborder" style="max-width: 24rem;">
+                <div class="slider" style="aspect-ratio: 4/3">
+                    <img id="slide-0" src="https://certificates.cs50.io/a31b8ff1-b6df-4923-b7d8-1d8e9bbea1dd.png?size=A4" alt="nanahira">
+                    <img id="slide-1" src="https://udemy-certificate.s3.amazonaws.com/image/UC-fe02f37e-fefa-4949-b69a-9a1f8f79a11b.jpg?v=1695577376000" alt="nanahira">
+                    <p id="slider-text">
+                        In 2024, I finished Harvard's free CS50 course.
+                    </p>
+                </div>
+                <div class="slider-nav">
+                    <a href="#slide-0" style="background-color: black;"></a>
+                    <a href="#slide-1" style="background-color: black;"></a>
+                </div>
+            </div>
+        </section>
+        <p> My final project in CS50, This is the video demo of this site</p>
+        <div class="video-div">
+            <div class="video-embed">
+                <iframe class="tealborder responsive-iframe centerdiv" src="https://www.youtube.com/embed/95tFD5UlWUw?autoplay=0&mute=0 " allowfullscreen="allowfullscreen"></iframe>
+            </div>
+        </div>
+        <p></p>
+        <p>Bocchi the Beat!</p>
+        <section class="slideshow2-container">
+            <div class="slider2-wrapper tealborder" style="max-width: 28.7em;">
+                <div class="slider2">
+                    <img id="slide2-0" src="{{ url_for('static', filename='/assets/img/bocchi.png') }}" alt="nanahira">
+                    <img id="slide2-1" src="{{ url_for('static', filename='/assets/img/nijika.png') }}" alt="nanahira">
+                    <p id="slider2-text">
+                        In 2023, I created a game for a school project, with almost all assets made from scratch. <br><br>
+                        My friend
+                        <a style="font-size: 24px; color:white; font-weight: 500; text-decoration: underline;" href="https://x.com/kekiyui/status/1623736046935760897/photo/1">
+                            drew the very cool bocchi hp sprites
+                        </a>.
+                        <br><br>
+                        <a style="font-size: 24px; color:white; font-weight: 500; text-decoration: underline;" href="https://gd.games/perlastrent123/bocchi-the-beat">
+                            try it out!
+                        </a>
+                    </p>
+                </div>
+                <div class="slider2-nav">
+                    <a href="#slide2-0"></a>
+                    <a href="#slide2-1"></a>
+                </div>
+            </div>
+        </section>
+        <p>I have some proficiency in using arch linux (btw)</p>
+        <a href="https://github.com/perlastrent123/nihirArch/tree/main" target="_blank">
+            <div class="content-img-wrapper tealborder center">
+                <img class="content-img" src="https://github.com/perlastrent123/nihirArch/blob/main/Preview/yep.png?raw=truehttps://github.com/perlastrent123/nihirArch/blob/main/Preview/yep.png?raw=true" alt="Nihirarch Preview">
+            </div>
+
+        </a>
+        <p></p>
+
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.slider-nav a').forEach((navLink, index) => {
+        navLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const messages = [
+                    `In 2024, I finished Harvard's free CS50 course.`,
+
+                    `I finished an udemy course at 2023, then didn't build anything for like a year, so I've forgotten everything I did there lmfao`
+                    ]
+            document.getElementById("slider-text").innerHTML = messages[index];
+            const slider = document.querySelector('.slider');
+            const slideWidth = slider.offsetWidth;
+            slider.scrollTo({
+                left: index * slideWidth,
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // IM TOO LAZY TO WRITE THIS DYNAMICALLY
+    document.querySelectorAll('.slider2-nav a').forEach((navLink, index) => {
+        navLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const messages = [
+                    `
+                    In 2023, I created a game with all assets made from scratch. <br><br>
+                        My friend
+                        <a style="font-size: 24px; color:white; font-weight: 500; text-decoration: underline;" href="https://x.com/kekiyui/status/1623736046935760897/photo/1">
+                            drew the very cool bocchi hp sprites
+                        </a>.
+                    `,
+
+                    `This was made with combination of Adobe Illustrator, Photoshop and GDevelop. <br><br>
+                    This was the first ever game or any program I wrote at all, and I'm very proud of it.
+                    `
+                    ]
+            document.getElementById("slider2-text").innerHTML = messages[index];
+            const slider = document.querySelector('.slider2');
+            const slideWidth = slider.offsetWidth;
+            slider.scrollTo({
+                left: index * slideWidth,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+{% endblock %}
