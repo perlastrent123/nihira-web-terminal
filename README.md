@@ -16,7 +16,7 @@ There are alot of features I stll wish to add if given the time, like making mul
 
 ## Specific Details of Project
 
-Contents of styles.css is completely written by me. Bootstrap was used for drop down in smaller sized screens in navigating pages.
+Contents of styles.css is completely written by me (UPDATE: NOT ANYMORE HAHA). Bootstrap was used for drop down in smaller sized screens in navigating pages.
 
 This program uses two (2) routes for flask and two (2) fetch api for javascript to process output information.
 
