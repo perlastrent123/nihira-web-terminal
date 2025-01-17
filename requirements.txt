@@ -5,6 +5,7 @@ chardet==5.2.0
 ConfigParser==7.1.0
 contextlib2==21.6.0
 cryptography==44.0.0
+cython==0.29
 docutils==0.21.2
 email_validator==2.2.0
 filelock==3.16.1
